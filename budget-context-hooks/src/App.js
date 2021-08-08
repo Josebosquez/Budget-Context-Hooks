@@ -29,6 +29,14 @@ function App() {
 
   function handleSubmit(e){
     e.preventDefault();
+    console.log(option);
+    console.log(description);
+    console.log(amount);
+
+    //Cant submit if amount is empty.
+    if (amount === 0){
+      return ;
+    }
   }
 
   const InputContextValue = {
