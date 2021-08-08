@@ -14,7 +14,6 @@ function Inputs() {
 
             <input type='submit' value = 'add'/>
         </form>
-
     )
 }
 

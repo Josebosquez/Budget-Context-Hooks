@@ -1,5 +1,6 @@
 import React, {useState} from 'react'
 import {Header, Lists, Inputs  } from "./components";
+import {InputContext, HeaderContext, ListContext} from "./context/context"
 
 import "./App.css";
 
@@ -30,13 +31,25 @@ function App() {
     e.preventDefault();
   }
 
+  const InputContextValue = {
+    option, 
+    description,
+    amount,
+    handleOption,
+    handleDescription,
+    handleAmount,
+    handleSubmit,
+  }
+
   return (
     <div className='App'>
-      <Header/>
+      <Header />
 
-      <Inputs/>
+      <InputContext.Provider value={InputContextValue}>
+      <Inputs />
+      </InputContext.Provider>
 
-      <Lists/>
+      <Lists />
     </div>
   )
 }
