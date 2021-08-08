@@ -1,6 +1,6 @@
-import React, {useState} from 'react'
-import {Header, Lists, Inputs  } from "./components";
-import {InputContext, HeaderContext, ListContext} from "./context/context"
+import React, { useState } from 'react'
+import { Header, Lists, Inputs } from "./components";
+import { InputContext, HeaderContext, ListsContext } from "./context/context"
 
 import "./App.css";
 
@@ -15,40 +15,40 @@ function App() {
   const [incomeArray, setIncomeArray] = useState([])
   const [expenseList, setExpenseList] = useState([])
 
-  function handleOption(value){
+  function handleOption(value) {
     setOption(value);
   }
 
-  function handleDescription(value){
+  function handleDescription(value) {
     setDescription(value);
   }
 
-  function handleAmount(value){
+  function handleAmount(value) {
     setAmount(value);
   }
 
-  function handleSubmit(e){
+  function handleSubmit(e) {
     e.preventDefault();
     console.log(option);
 
     //Cant submit if amount is empty. set up validation for err msg later.
-    if (amount === 0){
-      return ;
+    if (amount === 0) {
+      return;
     }
     // is it an expense or income?
-    if (option === "+"){
+    if (option === "+") {
       setIncome(income + parseFloat(amount)) // since amount is a string, we need to parse it to make a number
-      setIncomeArray([...incomeArray, {description, amount}] ) // set it into the income array by spreading the array, adding the description and the amount.
-    }else {
+      setIncomeArray([...incomeArray, { description, amount }]) // set it into the income array by spreading the array, adding the description and the amount.
+    } else {
       setExpense(expense - parseFloat(amount))
-      setExpenseList([...expenseList, {description, amount}])
+      setExpenseList([...expenseList, { description, amount }])
     }
   }
-  console.log(incomeArray)
-  console.log(expenseList)
+  console.log("income:", incomeArray)
+  console.log("expense:", expenseList)
 
   const InputContextValue = {
-    option, 
+    option,
     description,
     amount,
     handleOption,
@@ -57,15 +57,19 @@ function App() {
     handleSubmit,
   }
 
+  const ListContextValue = { incomeArray, expenseList }
+
   return (
     <div className='App'>
       <Header />
 
       <InputContext.Provider value={InputContextValue}>
-      <Inputs />
+        <Inputs />
       </InputContext.Provider>
 
-      <Lists />
+      <ListsContext.Provider value={ListContextValue}>
+        <Lists />
+      </ListsContext.Provider>
     </div>
   )
 }
