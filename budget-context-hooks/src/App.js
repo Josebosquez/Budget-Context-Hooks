@@ -44,8 +44,8 @@ function App() {
       setExpenseList([...expenseList, { description, amount }])
     }
   }
-  console.log("income:", incomeArray)
-  console.log("expense:", expenseList)
+  // console.log("income:", incomeArray)
+  // console.log("expense:", expenseList)
 
   const InputContextValue = {
     option,
