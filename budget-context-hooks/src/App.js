@@ -30,14 +30,22 @@ function App() {
   function handleSubmit(e){
     e.preventDefault();
     console.log(option);
-    console.log(description);
-    console.log(amount);
 
-    //Cant submit if amount is empty.
+    //Cant submit if amount is empty. set up validation for err msg later.
     if (amount === 0){
       return ;
     }
+    // is it an expense or income?
+    if (option === "+"){
+      setIncome(income + parseFloat(amount)) // since amount is a string, we need to parse it to make a number
+      setIncomeArray([...incomeArray, {description, amount}] ) // set it into the income array by spreading the array, adding the description and the amount.
+    }else {
+      setExpense(expense - parseFloat(amount))
+      setExpenseList([...expenseList, {description, amount}])
+    }
   }
+  console.log(incomeArray)
+  console.log(expenseList)
 
   const InputContextValue = {
     option, 
