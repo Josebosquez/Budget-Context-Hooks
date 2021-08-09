@@ -40,9 +40,42 @@ function App() {
       setIncome(income + parseFloat(amount)) // since amount is a string, we need to parse it to make a number
       setIncomeArray([...incomeArray, { description, amount }]) // set it into the income array by spreading the array, adding the description and the amount.
     } else {
-      setExpense(expense - parseFloat(amount))
+      setExpense(expense + parseFloat(amount))
       setExpenseList([...expenseList, { description, amount }])
-    }
+    };
+
+    reset();
+  }
+
+  function handleDeleteIncome(index) {
+    let incomeItemToDelete = incomeArray[index]
+
+    setIncome(income - incomeItemToDelete.amount)
+
+    let newIncomeArray = [...incomeArray];
+
+    newIncomeArray.splice(index, 1);
+
+    setIncomeArray(newIncomeArray)
+  }
+
+  function handleDeleteExpense(index) {
+    let expenseItemToDelete = expenseList[index]
+
+    setExpense(expense - expenseItemToDelete.amount)
+
+    let newExpenseArray = Object.assign([], expenseList);
+    console.log(newExpenseArray)
+
+    newExpenseArray.splice(index, 1)
+
+    setExpenseList(newExpenseArray)
+  
+  }
+
+  function reset (){
+    setAmount(0)
+    setDescription('')
   }
   // console.log("income:", incomeArray)
   // console.log("expense:", expenseList)
@@ -57,11 +90,15 @@ function App() {
     handleSubmit,
   }
 
-  const ListContextValue = { incomeArray, expenseList }
+  const HeaderContextValue = { income, expense }
+
+  const ListContextValue = { incomeArray, expenseList, handleDeleteExpense, handleDeleteIncome }
 
   return (
     <div className='App'>
-      <Header />
+      <HeaderContext.Provider value={HeaderContextValue}>
+        <Header />
+      </HeaderContext.Provider>
 
       <InputContext.Provider value={InputContextValue}>
         <Inputs />
