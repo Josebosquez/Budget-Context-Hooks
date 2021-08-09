@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Header, Lists, Inputs } from "./components";
 import { InputContext, HeaderContext, ListsContext } from "./context/context"
 
@@ -14,6 +14,19 @@ function App() {
 
   const [incomeArray, setIncomeArray] = useState([])
   const [expenseList, setExpenseList] = useState([])
+
+  useEffect(() => {
+    setLocalStorage();
+  }, [income, expense, incomeArray, expenseList])
+
+  function setLocalStorage(){ // set local storage to remember my variables.
+    window.localStorage.setItem('income', income);
+    window.localStorage.setItem('expense', expense);
+    window.localStorage.setItem('incomeArray', JSON.stringify(incomeArray)) 
+    window.localStorage.setItem('expenseList', JSON.stringify(expenseList))
+    
+
+  }
 
   function handleOption(value) {
     setOption(value);
@@ -77,8 +90,6 @@ function App() {
     setAmount(0)
     setDescription('')
   }
-  // console.log("income:", incomeArray)
-  // console.log("expense:", expenseList)
 
   const InputContextValue = {
     option,
